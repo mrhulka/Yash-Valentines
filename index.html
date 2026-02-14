@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Forever Valentine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-pastel: #f9f6f2; /* Champagne */
+            --accent-rose: #eac9c1; /* Rose Quartz */
+            --text-main: #4a423d;
+            --text-light: #8d8078;
+        }
+        
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            background-color: var(--bg-pastel);
+            color: var(--text-main);
+            font-family: 'Playfair Display', serif;
+            overflow: hidden;
+        }
+
+        /* Container for reel-like scrolling */
+        #main-container {
+            height: 100vh;
+            overflow-y: auto;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+            display: none;
+        }
+
+        .page {
+            height: 100vh;
+            width: 100%;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2.5rem;
+            text-align: center;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        #intro-screen {
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2.5rem;
+            text-align: center;
+            background-color: var(--bg-pastel);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 2000;
+        }
+
+        .photo-container {
+            width: 100%;
+            max-width: 300px;
+            background: white;
+            padding: 12px 12px 45px 12px;
+            border-radius: 2px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+            transform: rotate(-1deg);
+        }
+        
+        /* Alternating tilt for photos */
+        section.page:nth-of-type(even) .photo-container {
+            transform: rotate(1.5deg);
+        }
+
+        .photo-wrap {
+            width: 100%;
+            aspect-ratio: 1/1;
+            overflow: hidden;
+            background: #fdfdfd;
+        }
+        .photo-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        h1, h2 {
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            color: var(--text-main);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .copy-text {
+            font-size: 1rem;
+            line-height: 1.8;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            color: var(--text-light);
+            max-width: 300px;
+            margin: 0 auto;
+            white-space: pre-line;
+        }
+
+        .italic-serif {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
+
+        .heart-btn {
+            background: var(--accent-rose);
+            color: white;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 8px 20px rgba(234, 201, 193, 0.4);
+            margin-top: 2rem;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .music-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-light);
+            background: rgba(255,255,255,0.5);
+            padding: 5px 10px;
+            border-radius: 20px;
+        }
+        .bar {
+            width: 2px;
+            height: 10px;
+            background: var(--accent-rose);
+            animation: bounce 0.8s infinite alternate;
+        }
+        @keyframes bounce { from { height: 4px; } to { height: 14px; } }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-light);
+            opacity: 0.6;
+            animation: slideUp 2s infinite;
+        }
+        @keyframes slideUp {
+            0% { transform: translateY(0); opacity: 0; }
+            50% { opacity: 0.6; }
+            100% { transform: translateY(-10px); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="Song.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="music-indicator" id="musicIndicator">
+        <span>Audio On</span>
+        <div class="flex gap-1 items-end h-4">
+            <div class="bar" style="animation-delay: 0.1s"></div>
+            <div class="bar" style="animation-delay: 0.3s"></div>
+            <div class="bar" style="animation-delay: 0.5s"></div>
+        </div>
+    </div>
+
+    <!-- Intro: The Invitation -->
+    <div id="intro-screen">
+        <span class="text-[10px] uppercase tracking-[0.4em] mb-6 font-light text-gray-400">A Message For You</span>
+        <h1 class="text-3xl mb-6">To My Everything</h1>
+        <p class="copy-text italic-serif">
+            You know I’ve never been the type to celebrate dates on a calendar. I always thought love didn’t need a specific day... but tonight, being this far from you, I find myself reaching for any excuse to say your name.
+        </p>
+        <button class="heart-btn" onclick="startExperience()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        </button>
+    </div>
+
+    <!-- Main Reel -->
+    <div id="main-container">
+        
+        <!-- Photo 1 -->
+        <section class="page">
+            <div class="photo-container">
+                <div class="photo-wrap">
+                    <img src="1.jpg" alt="When we met" onerror="this.src='https://images.unsplash.com/photo-1518133910546-b6c2fb7d79e3?q=80&w=500&auto=format&fit=crop'">
+                </div>
+            </div>
+            <p class="copy-text">Some moments don’t 
+                announce themselves.
+                They just quietly change your life.</p>
+            <div class="scroll-hint">Scroll Up</div>
+        </section>
+
+        <!-- Photo 2 -->
+        <section class="page">
+            <div class="photo-container">
+                <div class="photo-wrap">
+                    <img src="2.jpg" alt="First trip" onerror="this.src='https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=500&auto=format&fit=crop'">
+                </div>
+            </div>
+            <p class="copy-text">Our first journey side by side.
+                Somewhere between places, 
+                I found home.</p>
+        </section>
+
+        <!-- Photo 3 -->
+        <section class="page">
+            <div class="photo-container">
+                <div class="photo-wrap">
+                    <img src="3.jpeg" alt="Growing" onerror="this.src='https://images.unsplash.com/photo-1522673607200-1648832cee98?q=80&w=500&auto=format&fit=crop'">
+                </div>
+            </div>
+            <p class="copy-text">Days passed, love deepened.
+                Choosing you became effortless.</p>
+        </section>
+
+        <!-- Photo 4 -->
+        <section class="page">
+            <div class="photo-container">
+                <div class="photo-wrap">
+                    <img src="4.jpeg" alt="Engagement" onerror="this.src='https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=500&auto=format&fit=crop'">
+                </div>
+            </div>
+            <p class="copy-text">One question. One answer.
+                A forever decided in that moment.</p>
+        </section>
+
+        <!-- Photo 5 -->
+        <section class="page">
+            <div class="photo-container">
+                <div class="photo-wrap">
+                    <img src="5.jpeg" alt="Wedding" onerror="this.src='https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=500&auto=format&fit=crop'">
+                </div>
+            </div>
+            <p class="copy-text">Not just a celebration.
+                The day you became my family.</p>
+        </section>
+
+        <!-- Photo 6 -->
+        <section class="page">
+            <div class="photo-container">
+                <div class="photo-wrap">
+                    <img src="6.jpeg" alt="Dance" onerror="this.src='https://images.unsplash.com/photo-1537633552985-df8429e8048b?q=80&w=500&auto=format&fit=crop'">
+                </div>
+            </div>
+            <p class="copy-text">New places, familiar laughter.
+                Just us, learning life together.</p>
+        </section>
+
+        <!-- Photo 7 -->
+        <section class="page">
+            <div class="photo-container">
+                <div class="photo-wrap">
+                    <img src="7.jpg" alt="Kiss" onerror="this.src='https://images.unsplash.com/photo-1494774157365-9e04c6720e47?q=80&w=500&auto=format&fit=crop'">
+                </div>
+            </div>
+            <p class="copy-text">In every kiss, a promise
+                to love you a little more each day.</p>
+        </section>
+
+        <!-- Photo 8 -->
+        <section class="page">
+            <div class="photo-container">
+                <div class="photo-wrap">
+                    <img src="8.jpg" alt="Compass" onerror="this.src='https://images.unsplash.com/photo-1516589174184-c685265142ec?q=80&w=500&auto=format&fit=crop'">
+                </div>
+            </div>
+            <p class="copy-text">You are my compass star.
+                Wherever life takes me, my heart knows the way back to you.</p>
+        </section>
+
+        <!-- Page 10: Forever Message (Final Statement) -->
+        <section class="page">
+            <h1 class="italic-serif text-3xl mb-8">My Valentine</h1>
+            <div class="w-12 h-[1px] bg-rose-200 mb-8"></div>
+            <p class="copy-text">
+                Distance is just a test to see how far love can travel. <br><br>
+                I want you to know, through every season and every mile between us...<br><br>
+                <span class="text-main font-normal tracking-wide italic-serif text-xl">You are my valentine, forever.</span>
+            </p>
+            <button class="mt-12 text-[10px] tracking-widest uppercase border-b border-gray-300 pb-1 text-gray-400" onclick="location.reload()">Back to start</button>
+        </section>
+
+    </div>
+
+    <script>
+        const bgMusic = document.getElementById('bgMusic');
+        const intro = document.getElementById('intro-screen');
+        const main = document.getElementById('main-container');
+        const indicator = document.getElementById('musicIndicator');
+
+        function startExperience() {
+            bgMusic.play().catch(e => console.log("Audio requires interaction", e));
+            indicator.style.display = 'flex';
+            intro.style.transition = 'opacity 1s ease';
+            intro.style.opacity = '0';
+            
+            setTimeout(() => {
+                intro.style.display = 'none';
+                main.style.display = 'block';
+                main.scrollTop = 1;
+            }, 1000);
+        }
+
+        indicator.onclick = () => {
+            if (bgMusic.paused) {
+                bgMusic.play();
+                indicator.querySelector('span').innerText = "Audio On";
+                document.querySelectorAll('.bar').forEach(b => b.style.animationPlayState = 'running');
+            } else {
+                bgMusic.pause();
+                indicator.querySelector('span').innerText = "Audio Off";
+                document.querySelectorAll('.bar').forEach(b => b.style.animationPlayState = 'paused');
+            }
+        };
+    </script>
+</body>
+</html>
