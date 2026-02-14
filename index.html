@@ -24,7 +24,6 @@
             overflow: hidden;
         }
 
-        /* Container for reel-like scrolling */
         #main-container {
             height: 100vh;
             overflow-y: auto;
@@ -74,7 +73,6 @@
             transform: rotate(-1deg);
         }
         
-        /* Alternating tilt for photos */
         section.page:nth-of-type(even) .photo-container {
             transform: rotate(1.5deg);
         }
@@ -193,7 +191,6 @@
         </div>
     </div>
 
-    <!-- Intro: The Invitation -->
     <div id="intro-screen">
         <span class="text-[10px] uppercase tracking-[0.4em] mb-6 font-light text-gray-400">A Message For You</span>
         <h1 class="text-3xl mb-6">To My Everything</h1>
@@ -205,19 +202,15 @@
         </button>
     </div>
 
-    <!-- Main Reel -->
     <div id="main-container">
-        
         <!-- Photo 1 -->
         <section class="page">
             <div class="photo-container">
                 <div class="photo-wrap">
-                    <img src="1.jpg" alt="When we met" onerror="this.src='https://images.unsplash.com/photo-1518133910546-b6c2fb7d79e3?q=80&w=500&auto=format&fit=crop'">
+                    <img src="1.jpg" data-id="1" alt="When we met" onerror="tryAlternateExtensions(this)" data-fallback="https://images.unsplash.com/photo-1518133910546-b6c2fb7d79e3?q=80&w=500&auto=format&fit=crop">
                 </div>
             </div>
-            <p class="copy-text">Some moments don’t 
-                announce themselves.
-                They just quietly change your life.</p>
+            <p class="copy-text">Some moments don’t announce themselves. They just quietly change your life.</p>
             <div class="scroll-hint">Scroll Up</div>
         </section>
 
@@ -225,81 +218,72 @@
         <section class="page">
             <div class="photo-container">
                 <div class="photo-wrap">
-                    <img src="2.jpg" alt="First trip" onerror="this.src='https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=500&auto=format&fit=crop'">
+                    <img src="2.jpg" data-id="2" alt="First trip" onerror="tryAlternateExtensions(this)" data-fallback="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=500&auto=format&fit=crop">
                 </div>
             </div>
-            <p class="copy-text">Our first journey side by side.
-                Somewhere between places, 
-                I found home.</p>
+            <p class="copy-text">Our first journey side by side. Somewhere between places, I found home.</p>
         </section>
 
         <!-- Photo 3 -->
         <section class="page">
             <div class="photo-container">
                 <div class="photo-wrap">
-                    <img src="3.jpeg" alt="Growing" onerror="this.src='https://images.unsplash.com/photo-1522673607200-1648832cee98?q=80&w=500&auto=format&fit=crop'">
+                    <img src="3.jpg" data-id="3" alt="Growing" onerror="tryAlternateExtensions(this)" data-fallback="https://images.unsplash.com/photo-1522673607200-1648832cee98?q=80&w=500&auto=format&fit=crop">
                 </div>
             </div>
-            <p class="copy-text">Days passed, love deepened.
-                Choosing you became effortless.</p>
+            <p class="copy-text">Days passed, love deepened. Choosing you became effortless.</p>
         </section>
 
         <!-- Photo 4 -->
         <section class="page">
             <div class="photo-container">
                 <div class="photo-wrap">
-                    <img src="4.jpeg" alt="Engagement" onerror="this.src='https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=500&auto=format&fit=crop'">
+                    <img src="4.jpg" data-id="4" alt="Engagement" onerror="tryAlternateExtensions(this)" data-fallback="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=500&auto=format&fit=crop">
                 </div>
             </div>
-            <p class="copy-text">One question. One answer.
-                A forever decided in that moment.</p>
+            <p class="copy-text">One question. One answer. A forever decided in that moment.</p>
         </section>
 
         <!-- Photo 5 -->
         <section class="page">
             <div class="photo-container">
                 <div class="photo-wrap">
-                    <img src="5.jpeg" alt="Wedding" onerror="this.src='https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=500&auto=format&fit=crop'">
+                    <img src="5.jpg" data-id="5" alt="Wedding" onerror="tryAlternateExtensions(this)" data-fallback="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=500&auto=format&fit=crop">
                 </div>
             </div>
-            <p class="copy-text">Not just a celebration.
-                The day you became my family.</p>
+            <p class="copy-text">Not just a celebration. The day you became my family.</p>
         </section>
 
         <!-- Photo 6 -->
         <section class="page">
             <div class="photo-container">
                 <div class="photo-wrap">
-                    <img src="6.jpeg" alt="Dance" onerror="this.src='https://images.unsplash.com/photo-1537633552985-df8429e8048b?q=80&w=500&auto=format&fit=crop'">
+                    <img src="6.jpg" data-id="6" alt="Dance" onerror="tryAlternateExtensions(this)" data-fallback="https://images.unsplash.com/photo-1537633552985-df8429e8048b?q=80&w=500&auto=format&fit=crop">
                 </div>
             </div>
-            <p class="copy-text">New places, familiar laughter.
-                Just us, learning life together.</p>
+            <p class="copy-text">New places, familiar laughter. Just us, learning life together.</p>
         </section>
 
         <!-- Photo 7 -->
         <section class="page">
             <div class="photo-container">
                 <div class="photo-wrap">
-                    <img src="7.jpg" alt="Kiss" onerror="this.src='https://images.unsplash.com/photo-1494774157365-9e04c6720e47?q=80&w=500&auto=format&fit=crop'">
+                    <img src="7.jpg" data-id="7" alt="Kiss" onerror="tryAlternateExtensions(this)" data-fallback="https://images.unsplash.com/photo-1494774157365-9e04c6720e47?q=80&w=500&auto=format&fit=crop">
                 </div>
             </div>
-            <p class="copy-text">In every kiss, a promise
-                to love you a little more each day.</p>
+            <p class="copy-text">In every kiss, a promise to love you a little more each day.</p>
         </section>
 
         <!-- Photo 8 -->
         <section class="page">
             <div class="photo-container">
                 <div class="photo-wrap">
-                    <img src="8.jpg" alt="Compass" onerror="this.src='https://images.unsplash.com/photo-1516589174184-c685265142ec?q=80&w=500&auto=format&fit=crop'">
+                    <img src="8.jpg" data-id="8" alt="Compass" onerror="tryAlternateExtensions(this)" data-fallback="https://images.unsplash.com/photo-1516589174184-c685265142ec?q=80&w=500&auto=format&fit=crop">
                 </div>
             </div>
-            <p class="copy-text">You are my compass star.
-                Wherever life takes me, my heart knows the way back to you.</p>
+            <p class="copy-text">You are my compass star. Wherever life takes me, my heart knows the way back to you.</p>
         </section>
 
-        <!-- Page 10: Forever Message (Final Statement) -->
         <section class="page">
             <h1 class="italic-serif text-3xl mb-8">My Valentine</h1>
             <div class="w-12 h-[1px] bg-rose-200 mb-8"></div>
@@ -310,7 +294,6 @@
             </p>
             <button class="mt-12 text-[10px] tracking-widest uppercase border-b border-gray-300 pb-1 text-gray-400" onclick="location.reload()">Back to start</button>
         </section>
-
     </div>
 
     <script>
@@ -318,6 +301,29 @@
         const intro = document.getElementById('intro-screen');
         const main = document.getElementById('main-container');
         const indicator = document.getElementById('musicIndicator');
+
+        // Logic to handle multiple file extensions automatically
+        function tryAlternateExtensions(img) {
+            const id = img.getAttribute('data-id');
+            const fallback = img.getAttribute('data-fallback');
+            
+            // Define the sequence of extensions to try
+            const extensions = ['.jpeg', '.JPG'];
+            
+            // Get current failed source to see what we've tried
+            const currentSrc = img.src.split('/').pop();
+            
+            if (img.src === fallback) return; // Already on final fallback
+
+            if (currentSrc === `${id}.jpg`) {
+                img.src = `${id}.jpeg`;
+            } else if (currentSrc === `${id}.jpeg`) {
+                img.src = `${id}.JPG`;
+            } else {
+                img.src = fallback;
+                img.onerror = null; // Prevent infinite loop
+            }
+        }
 
         function startExperience() {
             bgMusic.play().catch(e => console.log("Audio requires interaction", e));
