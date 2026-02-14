@@ -302,26 +302,23 @@
         const main = document.getElementById('main-container');
         const indicator = document.getElementById('musicIndicator');
 
-        // Logic to handle multiple file extensions automatically
+        // Logic to handle JPG and jpg file extensions
         function tryAlternateExtensions(img) {
             const id = img.getAttribute('data-id');
             const fallback = img.getAttribute('data-fallback');
             
-            // Define the sequence of extensions to try
-            const extensions = ['.jpeg', '.JPG'];
-            
-            // Get current failed source to see what we've tried
+            // Get current failed source filename
             const currentSrc = img.src.split('/').pop();
             
-            if (img.src === fallback) return; // Already on final fallback
+            if (img.src === fallback) return; // Already failed everything
 
+            // Try swapping between lower and uppercase jpg
             if (currentSrc === `${id}.jpg`) {
-                img.src = `${id}.jpeg`;
-            } else if (currentSrc === `${id}.jpeg`) {
                 img.src = `${id}.JPG`;
             } else {
+                // If .JPG also fails, move to the Unsplash fallback
                 img.src = fallback;
-                img.onerror = null; // Prevent infinite loop
+                img.onerror = null; // Prevent infinite loops
             }
         }
 
